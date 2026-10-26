@@ -1,5 +1,6 @@
 vertices = []
 matriz = []
+direcionado = False
 
 
 def indice(v):
@@ -39,6 +40,43 @@ def remover_vertice(v):
     print("Vertice", v, "removido")
 
 
+def existe_aresta(x, y):
+    i = indice(x)
+    j = indice(y)
+    if i == -1 or j == -1:
+        return False
+    return matriz[i][j] == 1
+
+
+def inserir_aresta(x, y):
+    i = indice(x)
+    j = indice(y)
+    if i == -1 or j == -1:
+        print("Um dos vertices nao existe, insere ele primeiro")
+        return
+    if matriz[i][j] == 1:
+        print("Essa aresta ja existe")
+        return
+
+    matriz[i][j] = 1
+    if not direcionado:
+        matriz[j][i] = 1
+    print("Aresta", x, "-", y, "inserida")
+
+
+def remover_aresta(x, y):
+    i = indice(x)
+    j = indice(y)
+    if i == -1 or j == -1 or matriz[i][j] == 0:
+        print("Essa aresta nao existe")
+        return
+
+    matriz[i][j] = 0
+    if not direcionado:
+        matriz[j][i] = 0
+    print("Aresta removida")
+
+
 def mostrar_matriz():
     if len(vertices) == 0:
         print("Grafo vazio")
@@ -67,9 +105,17 @@ def menu():
     print("------ GRAFO (Matriz de Adjacencia) ------")
     print("1 - Inserir vertice")
     print("2 - Remover vertice")
+    print("3 - Inserir aresta")
+    print("4 - Remover aresta")
     print("9 - Mostrar matriz")
     print("0 - Sair")
 
+
+resp = input("O grafo e direcionado? (s/n): ").strip().lower()
+while resp not in ("s", "sim", "n", "nao", "não"):
+    print("Responde so com s ou n")
+    resp = input("O grafo e direcionado? (s/n): ").strip().lower()
+direcionado = resp in ("s", "sim")
 
 while True:
     menu()
@@ -82,6 +128,16 @@ while True:
     elif op == "2":
         v = input("Vertice que vai remover: ").strip().upper()
         remover_vertice(v)
+
+    elif op == "3":
+        x = input("Vertice de origem: ").strip().upper()
+        y = input("Vertice de destino: ").strip().upper()
+        inserir_aresta(x, y)
+
+    elif op == "4":
+        x = input("Vertice de origem: ").strip().upper()
+        y = input("Vertice de destino: ").strip().upper()
+        remover_aresta(x, y)
 
     elif op == "9":
         mostrar_matriz()
