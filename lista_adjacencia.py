@@ -1,4 +1,5 @@
 grafo = {}
+direcionado = False
 
 
 def inserir_vertice(v):
@@ -20,7 +21,42 @@ def remover_vertice(v):
         print("Vertice nao encontrado")
         return
     del grafo[v]
+
+    
+    for u in grafo:
+        while v in grafo[u]:
+            grafo[u].remove(v)
     print("Vertice", v, "removido")
+
+
+def existe_aresta(x, y):
+    if x not in grafo:
+        return False
+    return y in grafo[x]
+
+
+def inserir_aresta(x, y):
+    if x not in grafo or y not in grafo:
+        print("Um dos vertices nao existe, insere ele primeiro")
+        return
+    if existe_aresta(x, y):
+        print("Essa aresta ja existe")
+        return
+
+    grafo[x].append(y)
+    if not direcionado and x != y:
+        grafo[y].append(x)
+    print("Aresta", x, "-", y, "inserida")
+
+
+def remover_aresta(x, y):
+    if not existe_aresta(x, y):
+        print("Essa aresta nao existe")
+        return
+    grafo[x].remove(y)
+    if not direcionado and x != y:
+        grafo[y].remove(x)
+    print("Aresta removida")
 
 
 def mostrar_grafo():
@@ -36,9 +72,17 @@ def menu():
     print("------ GRAFO (Lista de Adjacencia) ------")
     print("1 - Inserir vertice")
     print("2 - Remover vertice")
+    print("3 - Inserir aresta")
+    print("4 - Remover aresta")
     print("9 - Mostrar grafo")
     print("0 - Sair")
 
+
+resp = input("O grafo e direcionado? (s/n): ").strip().lower()
+while resp not in ("s", "sim", "n", "nao", "não"):
+    print("Responde so com s ou n")
+    resp = input("O grafo e direcionado? (s/n): ").strip().lower()
+direcionado = resp in ("s", "sim")
 
 while True:
     menu()
@@ -51,6 +95,16 @@ while True:
     elif op == "2":
         v = input("Vertice que vai remover: ").strip().upper()
         remover_vertice(v)
+
+    elif op == "3":
+        x = input("Vertice de origem: ").strip().upper()
+        y = input("Vertice de destino: ").strip().upper()
+        inserir_aresta(x, y)
+
+    elif op == "4":
+        x = input("Vertice de origem: ").strip().upper()
+        y = input("Vertice de destino: ").strip().upper()
+        remover_aresta(x, y)
 
     elif op == "9":
         mostrar_grafo()
