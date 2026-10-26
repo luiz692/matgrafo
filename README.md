@@ -10,3 +10,28 @@ atividade utilizando grafo estudado em sala
 | Luiz Antonio Marcussi Neto | 2035498 |
 | Marcos Tulio Lopes Junior | 2036120 |
 | Mateus Oliveira Augusto | 2037913 |
+
+## Arquivos
+
+- `lista_adjacencia.py` - Atividade 1 (Lista de Adjacencia)
+
+O programa tem esse menu:
+
+1. Inserir vertice
+2. Remover vertice
+3. Inserir aresta
+4. Remover aresta
+5. Mostrar o grau de cada vertice
+6. Verificar se existe aresta de um vertice para outro
+7. Listar os vizinhos de um vertice
+8. Verificar se um percurso e possivel
+9. Mostrar o grafo
+
+Quando o programa abre ele pergunta se o grafo e direcionado ou nao. No direcionado o grau aparece separado em entrada e saida.
+
+feito em Python
+```
+python lista_adjacencia.py
+```
+
+Para verificar um percurso, digita os vertices separados por espaco, por exemplo: `A B C D`. Por isso o nome do vertice nao pode ter espaco.
