@@ -108,6 +108,24 @@ def vizinhos(v):
     return lista
 
 
+def verificar_percurso(caminho):
+    if len(caminho) < 2:
+        print("Digita pelo menos 2 vertices")
+        return
+
+    for v in caminho:
+        if v not in vertices:
+            print("O vertice", v, "nao existe no grafo")
+            return
+
+    for i in range(len(caminho) - 1):
+        if not existe_aresta(caminho[i], caminho[i + 1]):
+            print("Percurso NAO e possivel, nao tem aresta de", caminho[i], "para", caminho[i + 1])
+            return
+
+    print("Percurso possivel!")
+
+
 def mostrar_matriz():
     if len(vertices) == 0:
         print("Grafo vazio")
@@ -141,6 +159,7 @@ def menu():
     print("5 - Mostrar grau dos vertices")
     print("6 - Verificar se existe aresta")
     print("7 - Listar vizinhos de um vertice")
+    print("8 - Verificar percurso")
     print("9 - Mostrar matriz")
     print("0 - Sair")
 
@@ -196,6 +215,10 @@ while True:
                 print(v, "nao tem vizinhos")
             else:
                 print("Vizinhos de", v + ":", ", ".join(viz))
+
+    elif op == "8":
+        caminho = input("Digita o percurso separado por espaco (ex: A B C): ").upper().split()
+        verificar_percurso(caminho)
 
     elif op == "9":
         mostrar_matriz()
