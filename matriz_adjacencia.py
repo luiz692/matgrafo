@@ -77,6 +77,37 @@ def remover_aresta(x, y):
     print("Aresta removida")
 
 
+def mostrar_graus():
+    if len(vertices) == 0:
+        print("Grafo vazio")
+        return
+
+    n = len(vertices)
+    for i in range(n):
+        if direcionado:
+            
+            saida = sum(matriz[i])
+            entrada = 0
+            for k in range(n):
+                entrada += matriz[k][i]
+            print(vertices[i], "-> entrada:", entrada, "| saida:", saida, "| total:", entrada + saida)
+        else:
+            grau = sum(matriz[i])
+           
+            if matriz[i][i] == 1:
+                grau += 1
+            print(vertices[i], "-> grau", grau)
+
+
+def vizinhos(v):
+    i = indice(v)
+    lista = []
+    for j in range(len(vertices)):
+        if matriz[i][j] == 1:
+            lista.append(vertices[j])
+    return lista
+
+
 def mostrar_matriz():
     if len(vertices) == 0:
         print("Grafo vazio")
@@ -107,6 +138,9 @@ def menu():
     print("2 - Remover vertice")
     print("3 - Inserir aresta")
     print("4 - Remover aresta")
+    print("5 - Mostrar grau dos vertices")
+    print("6 - Verificar se existe aresta")
+    print("7 - Listar vizinhos de um vertice")
     print("9 - Mostrar matriz")
     print("0 - Sair")
 
@@ -138,6 +172,30 @@ while True:
         x = input("Vertice de origem: ").strip().upper()
         y = input("Vertice de destino: ").strip().upper()
         remover_aresta(x, y)
+
+    elif op == "5":
+        mostrar_graus()
+
+    elif op == "6":
+        x = input("De qual vertice: ").strip().upper()
+        y = input("Para qual vertice: ").strip().upper()
+        if x not in vertices or y not in vertices:
+            print("Um dos vertices nao existe no grafo")
+        elif existe_aresta(x, y):
+            print("Existe aresta de", x, "para", y)
+        else:
+            print("Nao existe aresta de", x, "para", y)
+
+    elif op == "7":
+        v = input("Vertice: ").strip().upper()
+        if v not in vertices:
+            print("Vertice nao encontrado")
+        else:
+            viz = vizinhos(v)
+            if len(viz) == 0:
+                print(v, "nao tem vizinhos")
+            else:
+                print("Vizinhos de", v + ":", ", ".join(viz))
 
     elif op == "9":
         mostrar_matriz()
