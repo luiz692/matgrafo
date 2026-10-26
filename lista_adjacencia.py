@@ -59,6 +59,27 @@ def remover_aresta(x, y):
     print("Aresta removida")
 
 
+def mostrar_graus():
+    if len(grafo) == 0:
+        print("Grafo vazio")
+        return
+
+    for v in grafo:
+        if direcionado:
+            saida = len(grafo[v])
+            entrada = 0
+            for u in grafo:
+                if v in grafo[u]:
+                    entrada += 1
+            print(v, "-> entrada:", entrada, "| saida:", saida, "| total:", entrada + saida)
+        else:
+            grau = len(grafo[v])
+            # laco conta 2 no grau
+            if v in grafo[v]:
+                grau += 1
+            print(v, "-> grau", grau)
+
+
 def mostrar_grafo():
     if len(grafo) == 0:
         print("Grafo vazio")
@@ -74,6 +95,9 @@ def menu():
     print("2 - Remover vertice")
     print("3 - Inserir aresta")
     print("4 - Remover aresta")
+    print("5 - Mostrar grau dos vertices")
+    print("6 - Verificar se existe aresta")
+    print("7 - Listar vizinhos de um vertice")
     print("9 - Mostrar grafo")
     print("0 - Sair")
 
@@ -105,6 +129,28 @@ while True:
         x = input("Vertice de origem: ").strip().upper()
         y = input("Vertice de destino: ").strip().upper()
         remover_aresta(x, y)
+
+    elif op == "5":
+        mostrar_graus()
+
+    elif op == "6":
+        x = input("De qual vertice: ").strip().upper()
+        y = input("Para qual vertice: ").strip().upper()
+        if x not in grafo or y not in grafo:
+            print("Um dos vertices nao existe no grafo")
+        elif existe_aresta(x, y):
+            print("Existe aresta de", x, "para", y)
+        else:
+            print("Nao existe aresta de", x, "para", y)
+
+    elif op == "7":
+        v = input("Vertice: ").strip().upper()
+        if v not in grafo:
+            print("Vertice nao encontrado")
+        elif len(grafo[v]) == 0:
+            print(v, "nao tem vizinhos")
+        else:
+            print("Vizinhos de", v + ":", ", ".join(grafo[v]))
 
     elif op == "9":
         mostrar_grafo()
