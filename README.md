@@ -15,8 +15,9 @@ atividade utilizando grafo estudado em sala
 
 - `lista_adjacencia.py` - Atividade 1 (Lista de Adjacencia)
 - `matriz_adjacencia.py` - Atividade 2 (Matriz de Adjacencia)
+- `lista_arestas.py` - Atividade 3 (Lista de Arestas)
 
-Os dois programas tem o mesmo menu:
+Os tres programas tem o mesmo menu:
 
 1. Inserir vertice
 2. Remover vertice
@@ -34,6 +35,7 @@ feito em Python
 ```
 python lista_adjacencia.py
 python matriz_adjacencia.py
+python lista_arestas.py
 ```
 
 Para verificar um percurso, digita os vertices separados por espaco, por exemplo: `A B C D`. Por isso o nome do vertice nao pode ter espaco.
